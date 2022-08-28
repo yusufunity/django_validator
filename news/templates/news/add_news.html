@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Yangiliklarni qo'shish :: {{ block.super }}
+{% endblock %}
+
+{% block sidebar %}
+
+	
+	<div class="list-group">
+		{% for item in categories %}
+		
+		<a href="{% url 'category' item.pk %}" class="list-group-item list-group-item-action ">{{ item.title }}</a>
+		
+		{% endfor %}
+	
+	</div>
+	
+	
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<h2>Yangiliklarni qo'shish</h2>	
+<form action="{% url 'add_news' %}" method="post">
+	
+	{% comment %} -------------I usul bu -------------------------------------{% endcomment %}
+	{% comment %} Forma yaratishda ishlatiladi as_p,as_ul,as_table {% endcomment %}
+	{% csrf_token %}
+	
+	{{ form.as_p}}
+	
+
+	{% comment %} -------------II usul bu -------------------------------------{% endcomment %}
+	<!-- 
+	  <div class="form-group">
+		    <label for="{{ form.title.id_for_label}}">Nomi:</label>
+		   	{{ form.title}} 
+
+		   	{% comment %} xatolarni korsatib turadi{% endcomment %}
+		  
+		   	<div class="invalid-feedback">
+		   		{{form.title.errors}}
+		   	</div>
+	  </div>
+	
+	  <div class="form-group">
+		  	{% comment %} id_for_label {% endcomment %}
+		    <label for="{{ form.content.id_for_label}}">Kontent:</label>
+		   	{{ form.content }} 
+		   	<div class="invalid-feedback">
+		   		{{form.content.errors}}
+		   	</div>
+	  </div>
+
+	  <div class="form-group">
+		    <label for="{{ form.is_published.id_for_label}}">Tanlash:</label>
+		   	{{ form.is_published }} 
+		   	<div class="invalid-feedback">
+		   		{{form.is_published.errors}}
+		   	</div>
+	  </div>
+	<div class="form-group">
+	    <label for="{{ form.category.id_for_label}}"></label>
+	   	{{ form.category }} 
+	   	<div class="invalid-feedback">
+	   		{{form.category.errors}}
+	   	</div>
+	 </div>
+	 -->
+	 
+
+	{% comment %} -------------III usul bu -------------------------------------{% endcomment %}
+
+
+	{% comment %}
+	{% for field in form %}
+
+	<div class="form-group">
+		{{ field.label_tag }}
+		{{ field }}
+		<div class="invalid-feedback">
+	   		{{ field.errors }}
+	   	</div>
+	</div>
+
+	{% endfor %}
+	{% endcomment %}
+
+	<button type="submit" class="btn-primary btn-block">Yangiliklarni qo'shish</button>
+</form>				
+
+
+{% endblock %}
+
+		
+
+

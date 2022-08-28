@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}
+
+	{{ category.title }} ::{{ block.super }}
+
+{% endblock %}
+
+
+{% block sidebar %}
+	
+	{% include 'news/list_categories.html' %}
+	
+	{% comment %}
+	<div class="list-group">
+		{% for item in categories %}
+		
+		<a href="{% url 'category' item.pk %}" class="list-group-item list-group-item-action ">{{ item.title }}</a>
+		
+		{% endfor %}
+	
+	</div>
+	{% endcomment %}
+
+
+{% endblock %}
+{% block content %}
+
+
+				
+				{% comment %}<!-- {% for item in news  reversed %} --> {% endcomment %}
+				{% for item in news %}
+				<div class="card mb-3">
+	  				<div class="card-header">
+	  						<!-- {{ item.yusuf}} -->
+	  						<!-- {{ forloop.counter }} -->
+	    					Kategoriya: {{ item.category }}
+	  				</div>
+	  			    <div class="card-body">
+	  			    	<div class="media">
+	  			    		{% if item.photo %}
+	  			    			<img src="{{ item.photo.url }}" alt="" width="350" class="mr-3">
+	  			    		{% endif %}
+	  			    		<div class="media-body">
+	  			    			
+				    			<h5 class="card-title {% cycle 'text-danger' 'text-success' %}">{{ item.title }}</h5>
+				    			{% comment %} linebreaks orsaini oshadi| safe esa html taglarni oddiy sozga aylantiradi {% endcomment %}
+				    			<p class="card-text">{{ item.content|safe|linebreaks|truncatewords:50 }}</p>
+				    			<a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more...</a>
+	  			    		</div>
+	  			    		
+	  			    	</div>
+	  			    </div>
+	               <div class="card-footer text-muted">
+	                   {{item.create_at|date:"Y-m-d H:m "}}
+	                </div>
+	            </div>
+	            {% comment%}
+	            <!-- {% empty%} -->
+	            <!-- <h2>Bunaqa ma'lumot yo'q</h2> -->
+				{% endcomment %}
+				{% endfor %}
+			
+
+
+{% endblock %}
+		
+
+
